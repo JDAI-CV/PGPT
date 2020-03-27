@@ -78,3 +78,12 @@ Results on Posetrack 2017 Datasets comparing with the other methods, the result 
 - You can modify the `inference/config.py` to suit the path of your own.
 - We  still arrange the project of our method, and we will release the  whole project later. 
 
+### Citation
+If you use this code for your research, please consider citing:
+
+@InProceedings{TMM2020-PGPT,
+title = {Pose-Guided Tracking-by-Detection: Robust Multi-Person Pose Tracking},
+author = {Q. Bao, W. Liu, Y. Cheng, B. Zhou and T. Mei},
+booktitle = { IEEE Transactions on Multimedia},
+year = {2020}
+}
