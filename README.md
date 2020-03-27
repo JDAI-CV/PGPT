@@ -81,9 +81,9 @@ Results on Posetrack 2017 Datasets comparing with the other methods, the result 
 ### Citation
 If you use this code for your research, please consider citing:
 
-@InProceedings{TMM2020-PGPT,
-title = {Pose-Guided Tracking-by-Detection: Robust Multi-Person Pose Tracking},
-author = {Q. Bao, W. Liu, Y. Cheng, B. Zhou and T. Mei},
-booktitle = { IEEE Transactions on Multimedia},
+@InProceedings{TMM2020-PGPT,/
+title = {Pose-Guided Tracking-by-Detection: Robust Multi-Person Pose Tracking},/
+author = {Q. Bao, W. Liu, Y. Cheng, B. Zhou and T. Mei},/
+booktitle = { IEEE Transactions on Multimedia},/
 year = {2020}
 }
