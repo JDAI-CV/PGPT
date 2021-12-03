@@ -56,7 +56,7 @@ For posetrack dataset, the keypoints is as follow
 '''
 class PoseNet(object):
 	def __init__(self, gpu_id=0, model_path=None):
-		self.cfg_file='${PGPT_ROOT}/cfgs/pose_res152.yaml'
+		self.cfg_file='/PGPT/cfgs/pose_res152.yaml'
 		self.flag = 0
 
 		update_config(self.cfg_file)
