@@ -66,7 +66,7 @@ def demo(image_dir, result_dir, save_dir):
             frame_name = annotation['image'][0]['name']
             #annotation['image_id'] #10010010103=frame_id
             frame_store_path = os.path.join(video_folder, frame_name.split('/')[-1]) #file
-            frame_path = os.path.join(image_dir,frame_name) #file dor read
+            frame_path = os.path.join(image_dir,frame_name) #file for read
             frame = cv2.imread(frame_path)
             im_H, im_W, im_C = frame.shape
             if i==0:
@@ -98,7 +98,7 @@ if __name__ == '__main__':
     print('Visualizing the results')
     config = Config()
     parser = argparse.ArgumentParser(description="Visualizing the results")
-    parser.add_argument("--image_dir", type=str, default=config.root) # /PGPT
+    parser.add_argument("--image_dir", type=str, default=config.data_folder) # /PGPT/data/demodataset
     parser.add_argument("--result_dir", type=str, default=config.save_dir) # /PGPT/results/demo
     parser.add_argument("--save_dir", type=str, default=config.video_path) # /PGPT/results/demo
 	#parser.add_argument('--cfg', type=str, required=True) #added by alnguyen
