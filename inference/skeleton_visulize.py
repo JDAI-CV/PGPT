@@ -98,9 +98,9 @@ if __name__ == '__main__':
     print('Visualizing the results')
     config = Config()
     parser = argparse.ArgumentParser(description="Visualizing the results")
-    parser.add_argument("--image_dir", type=str, default=config.root)
-    parser.add_argument("--result_dir", type=str, default=config.save_dir)
-    parser.add_argument("--save_dir", type=str, default=config.video_path)
+    parser.add_argument("--image_dir", type=str, default=config.root) # /PGPT
+    parser.add_argument("--result_dir", type=str, default=config.save_dir) # /PGPT/results/demo
+    parser.add_argument("--save_dir", type=str, default=config.video_path) # /PGPT/results/demo
 	#parser.add_argument('--cfg', type=str, required=True) #added by alnguyen
 	#parser.add_argument('opts', 
                         #help='Modify config options using the command-line',
