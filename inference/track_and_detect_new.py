@@ -15,7 +15,7 @@ from pose_estimation_graph import PoseNet
 from tracker import SiamFCTracker
 
 from match import Matcher
-from model.nms.nms_wrapper import nms
+#from model.nms.nms_wrapper import nms
 
 class Track_And_Detect(object):
 	effective_track_thresh = 0.5

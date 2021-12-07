@@ -227,8 +227,9 @@ def process_arguments(argv):
   elif len(argv)<3 or len(argv)>4:
     help()
 
-  gt_file = argv[1]
-  pred_file = argv[2]
+  gt_dir = argv[1]
+  pred_dir = argv[2]
+  return gt_dir, pred_dir, mode
 
   if not os.path.exists(gt_file):
     help('Given ground truth directory does not exist!\n')
@@ -281,7 +282,6 @@ def load_data(argv):
   prFramesAll = data
 
   return gtFramesAll, prFramesAll
-
 
 def cleanupData(gtFramesAll,prFramesAll):
 
@@ -377,6 +377,7 @@ def load_data_dir(argv):
   if not os.path.exists(pred_dir):
     help('Given prediction directory ' + pred_dir + ' does not exist!\n')
   filenames = glob.glob(gt_dir + "/*.json")
+  
   gtFramesAll = []
   prFramesAll = []
 

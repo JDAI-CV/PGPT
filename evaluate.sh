@@ -4,9 +4,9 @@
 # pose_number is how many number of keypoints we want to see in a person
 # pose_threshold is the score we set to filter the keypoints whose score is small 
 # ground_truth='/export/home/cyh/mygithub/PoseGCN/data/annotations/val_2017/'
-ground_truth='${PGPT_ROOT}/data/demodataset/annotations/'
-predictions='${PGPT_ROOT}/results/demo'
-results='test'
+ground_truth='/PGPT/data/demodataset/annotations'
+predictions='/PGPT/results/demo'
+results='/PGPT/results/evaluate'
 pose_number=0
 pose_threshold=0.5
 
