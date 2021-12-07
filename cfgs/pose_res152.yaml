@@ -1,4 +1,4 @@
-GPUS: (0,)
+GPUS: '0'
 DATA_DIR: ''
 OUTPUT_DIR: 'output'
 LOG_DIR: 'log'

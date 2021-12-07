@@ -9,7 +9,13 @@ import json
 
 from tqdm import tqdm
 import random
-from config import Config
+
+#from config import Config
+import sys
+sys.path.append('../lib')
+from config import cfg
+from config import update_config
+
 from track_and_detect_new import Track_And_Detect
 
 '''
@@ -51,17 +57,17 @@ For competition
 }
 '''
 match_list=[13,12,14,9,8,10,7,11,6,3,2,4,1,5,0]
-config = Config()
+#config = Config()
 def parseArgs():
 	parser = argparse.ArgumentParser(description="Evaluation of Pose Estimation and Tracking (PoseTrack)")
-	#arser.add_argument('--cfg', type=str, required=True) #added by alnguyen
+	parser.add_argument('--cfg', type=str, required=True) #added by alnguyen
 	parser.add_argument("-t", "--detection_thresh",dest = 'det_thresh',required=False, default=0.4, type= float)
 	parser.add_argument("-p", "--pos_thresh",dest = 'pose_thresh',required=False, default=0, type= float)
 	parser.add_argument("-v", "--vis_flag",dest = 'vis_flag',required=False, default=False, type= bool)
-	#parser.add_argument('opts', 
-                        #help='Modify config options using the command-line',
-                        #default=None,
-                        #nargs=argparse.REMAINDER) #added by alnguyen
+	parser.add_argument('opts', 
+                        help='Modify config options using the command-line',
+                        default=None,
+                        nargs=argparse.REMAINDER) #added by alnguyen
 						
 	args = parser.parse_args()
 
@@ -75,18 +81,22 @@ class DateEncoder(json.JSONEncoder):
 			return obj.tolist()
 		return json.JSONEncoder.default(self, obj)
 
-def track_test(args, gpu_id=0):
+def track_test():
 
+	args = parseArgs()
 	pose_vis_thresh = args.pose_thresh
 	detection_score_thresh = args.det_thresh
 	vis_flag = args.vis_flag
-	json_path = config.json_path_detection
-	# Change temporially 
-	save_dir = config.save_dir
 
-	gt_json_path = config.gt_json_path
-	data_folder = config.data_folder
-	video_path = config.video_path
+	update_config(cfg, args)
+	gpu_id = cfg.GPU_ID
+	json_path = cfg.INPUT.JSON_DETECTION_PATH
+	# Change temporially 
+	save_dir = cfg.OUTPUT.SAVE_DIR
+
+	gt_json_path = cfg.INPUT.GT_JSON_PATH
+	data_folder = cfg.INPUT.DATA_FOLDER
+	video_path = cfg.OUTPUT.VIDEO_PATH
 
 	print('----------------------------------------------------------------------------------')
 	print('Detection_score_thresh: {}    Vis_flag: {}'.format(detection_score_thresh, vis_flag))
@@ -100,7 +110,10 @@ def track_test(args, gpu_id=0):
 		bbox_dict = json.load(f)
 	
 	# Create the Tracker
-	tracker = Track_And_Detect(gpu_id=gpu_id, track_model=config.track_model, pose_model=config.pose_model, embedding_model=config.embedding_model)
+	track_model=cfg.INPUT.TRACK_MODEL
+	pose_model=cfg.INPUT.POSE_MODEL
+	embedding_model=cfg.INPUT.EMBEDDING_MODEL
+	tracker = Track_And_Detect(gpu_id=gpu_id, track_model=track_model, pose_model=pose_model, embedding_model=embedding_model)
 	
 	# Load the Ground Truth to get the right video keys (demo_val.json)
 	with open(gt_json_path,'r') as f:
@@ -162,5 +175,4 @@ def track_test(args, gpu_id=0):
 
 
 if __name__ == "__main__":
-	args = parseArgs()
-	track_test(args=args)
+	track_test()

@@ -6,7 +6,11 @@ import cv2
 import numpy as np
 from cv2_color import Color
 import glob
-from config import Config
+#from config import Config
+import sys
+sys.path.append('../lib')
+from config import cfg
+from config import update_config
 
 # The match list from the results to the test
 match_list=[13,12,14,9,8,10,7,11,6,3,2,4,1,5,0]
@@ -34,6 +38,17 @@ def draw_limb(image, kps, color):
     for h, t in limbs:
         draw_line(kps[h], kps[t])
 
+def parseArgs():
+	parser = argparse.ArgumentParser(description="Visualizing the results")
+	parser.add_argument('--cfg', type=str, required=True) #added by alnguyen
+	parser.add_argument('opts', 
+                        help='Modify config options using the command-line',
+                        default=None,
+                        nargs=argparse.REMAINDER) #added by alnguyen
+						
+	args = parser.parse_args()
+
+	return args
 
 def demo(image_dir, result_dir, save_dir):
     """
@@ -96,21 +111,20 @@ def demo(image_dir, result_dir, save_dir):
     
 if __name__ == '__main__':
     print('Visualizing the results')
-    config = Config()
-    parser = argparse.ArgumentParser(description="Visualizing the results")
-    parser.add_argument("--image_dir", type=str, default=config.data_folder) # /PGPT/data/demodataset
-    parser.add_argument("--result_dir", type=str, default=config.save_dir) # /PGPT/results/demo
-    parser.add_argument("--save_dir", type=str, default=config.video_path) # /PGPT/results/demo
-	#parser.add_argument('--cfg', type=str, required=True) #added by alnguyen
-	#parser.add_argument('opts', 
-                        #help='Modify config options using the command-line',
-                        #default=None,
-                        #nargs=argparse.REMAINDER) #added by alnguyen
+    #parser.add_argument("--image_dir", type=str, default=cfg.INPUT.DATA_FOLDER) # /PGPT/data/demodataset
+    #parser.add_argument("--result_dir", type=str, default=cfg.OUTPUT.SAVE_DIR) # /PGPT/results/demo
+    #parser.add_argument("--save_dir", type=str, default=cfg.OUTPUT.VIDEO_PATH) # /PGPT/results/demo
+
 						
-    args = parser.parse_args()
+    args = parseArgs()
+    update_config(cfg, args)
+
+    image_dir = cfg.INPUT.DATA_FOLDER
+    result_dir = cfg.OUTPUT.SAVE_DIR
+    save_dir = cfg.OUTPUT.VIDEO_PATH
     
-    if not os.path.exists(args.save_dir):
-        os.makedirs(args.save_dir)
-    demo(args.image_dir, args.result_dir, args.save_dir)
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+    demo(image_dir, result_dir, save_dir)
 
 
